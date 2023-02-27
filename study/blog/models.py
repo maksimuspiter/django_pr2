@@ -10,9 +10,18 @@ class Post(models.Model):
     published = models.BooleanField(default=False)
     # author = models.ForeignKey('Portfolio', on_delete=models.PROTECT)
     author = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+    tags = models.ManyToManyField('Tag')
 
     def __str__(self):
         return f"{self.author}:{self.title}"
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
 
 
 # class Portfolio(models.Model):

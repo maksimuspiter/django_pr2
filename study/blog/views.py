@@ -26,6 +26,8 @@ class PostAPIView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
 
+
+
 # UpdateAPIView
 
 class PostUpdate(generics.RetrieveUpdateAPIView):
