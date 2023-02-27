@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+    {% for post in posts %}
+        <h1>{{post.author.nickname}}: {{post.title}}</h1>
+        <h4>{{post.text}}</h4>
+        <h5>published_date: {{post.created_date|date:"D.M.Y f"}}</h5>
+    {% endfor %}
+</body>
+</html>
