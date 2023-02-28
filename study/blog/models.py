@@ -10,10 +10,15 @@ class Post(models.Model):
     published = models.BooleanField(default=False)
     # author = models.ForeignKey('Portfolio', on_delete=models.PROTECT)
     author = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', related_name='posts')
 
     def __str__(self):
         return f"{self.author}:{self.title}"
+
+    class Meta:
+        ordering = ['id']
+
+
 
 
 class Tag(models.Model):

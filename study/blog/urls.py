@@ -1,17 +1,12 @@
-from django.urls import path, include, re_path
-from blog.views import index, PostAPIView, PostUpdate
-from rest_framework.routers import SimpleRouter
+from django.urls import path, include
+from blog import views
+from rest_framework.routers import DefaultRouter
 
-router = SimpleRouter()
-
+router = DefaultRouter()
+router.register(r'tag', views.TagViewSet, basename="tag")
+router.register(r'post', views.PostViewSet, basename="post")
 
 urlpatterns = [
-    path('', index),
-    path('post/', PostAPIView.as_view()),
-    path('post/<int:pk>', PostUpdate.as_view()),
-
-    # path('api/v1/auth/', include('djoser.urls')),  # djoser authentication
-    # re_path(r'^auth/', include('djoser.urls.authtoken')),  #  djoser authentication
+    path('', include(router.urls)),
 
 ]
-# urlpatterns += router.urls
