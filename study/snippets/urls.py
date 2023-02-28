@@ -14,9 +14,3 @@ urlpatterns = format_suffix_patterns(urlpatterns)
     http://127.0.0.1:8000/snippets.json  # JSON suffix
     http://127.0.0.1:8000/snippets.api   # Browsable API suffix
 """
-urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
-]
-"""
-add button log in
-"""

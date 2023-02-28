@@ -7,12 +7,11 @@ router = SimpleRouter()
 
 urlpatterns = [
     path('', index),
-    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/post/', PostAPIView.as_view()),
     path('api/v1/post/<int:pk>', PostUpdate.as_view()),
 
-    path('api/v1/auth/', include('djoser.urls')),  # djoser authentication
-    re_path(r'^auth/', include('djoser.urls.authtoken')),  #  djoser authentication
+    # path('api/v1/auth/', include('djoser.urls')),  # djoser authentication
+    # re_path(r'^auth/', include('djoser.urls.authtoken')),  #  djoser authentication
 
 ]
 # urlpatterns += router.urls
