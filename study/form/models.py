@@ -9,6 +9,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=False)
     author = models.ForeignKey('Portfolio', on_delete=models.PROTECT)
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
     tags = models.ManyToManyField('Tag', related_name='posts')
 
     def __str__(self):
@@ -25,10 +26,17 @@ class Portfolio(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.title
+        return self.nickname
 
 
 class Tag(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+class Category(models.Model):
     title = models.CharField(max_length=255)
 
     def __str__(self):
