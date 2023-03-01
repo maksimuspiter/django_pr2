@@ -7,8 +7,8 @@ from .forms import CreateTagForm, CreatePostForm, CreateCategoryFormFactory, Cre
 
 
 def index(request):
-    # return HttpResponse(f'Hello world')
-    return render(request, 'form/index2.html')
+    return HttpResponse(f'Hello: {request.user}')
+
 
 
 def show_posts(request):
@@ -65,10 +65,12 @@ def create_post(request):
             return redirect('form:get-all-posts')
 
     else:
-        data = {'user_id': request.user.id}
-        form = CreatePostForm(user=request.user)
+        if request.user.is_authenticated:
+            data = {'user_id': request.user.id}
+            form = CreatePostForm(user=request.user)
+            return render(request, 'form/name.html', {'form': form})
 
-    return render(request, 'form/name.html', {'form': form})
+    return redirect('registration:login')
 
 
 class CreateCategoryFactory(CreateView):
