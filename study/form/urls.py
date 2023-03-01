@@ -7,4 +7,6 @@ urlpatterns = [
     path('tags/', views.show_tags, name='get-all-tags'),
     path('tags/create/', views.create_tag, name='create-tag'),
     path('posts/create/', views.create_post, name='create-post'),
+
+
 ]

@@ -8,20 +8,13 @@ from form.models import Tag, Category, Portfolio, Post
 class CreateTagForm(forms.Form):
     title = forms.CharField(label='Your name', max_length=255)
 
+class CreateCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
 
-# class CreatePostForm(forms.Form):
-#     # categories = Category.objects.all()
-#     # def get_context(self):
-#     def __init__(self, user, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.user = user.id
-#
-#     title = forms.CharField(label='title', max_length=255)
-#     text = forms.CharField(label='text', widget=forms.Textarea)
-#     author = forms.ModelChoiceField(label='author', queryset=Portfolio.objects.filter(author__id=user))
-#     category = forms.ModelChoiceField(label='category', queryset=Category.objects.all())
-#     tags = forms.ModelMultipleChoiceField(label='tags', queryset=Tag.objects.all())
-
+class CreatePortfolioForm(forms.ModelForm):
+    class Meta:
+        model = Portfolio
 class CreatePostForm(forms.ModelForm):
     author = forms.ModelChoiceField(
         queryset=None,
@@ -35,3 +28,19 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'text', 'author', 'category', 'tags']
+
+
+class SimpleForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["title"]
+
+
+# class CommentForm(forms.Form):
+#     name = forms.CharField(initial='class')
+#     url = forms.URLField()
+#     comment = forms.CharField()
+
+
+
+

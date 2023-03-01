@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from form.models import Post, Tag, Portfolio
-from .forms import CreateTagForm, CreatePostForm
+from .forms import CreateTagForm, CreatePostForm, CreateCategoryForm
 
 
 def index(request):
@@ -12,6 +12,7 @@ def index(request):
 def show_posts(request):
     post = [str(post) + ' ' for post in Post.objects.all()]
     return HttpResponse(post)
+
 
 def show_tags(request):
     tags = [str(tag) + ' ' for tag in Tag.objects.all()]
@@ -35,8 +36,11 @@ def create_tag(request):
 
     return render(request, 'form/name.html', {'form': form})
 
-def create_post(request):
 
+
+
+
+def create_post(request):
     if request.method == 'POST':
         form = CreatePostForm(request.POST)
 
