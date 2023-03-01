@@ -40,7 +40,7 @@ def create_tag(request):
         if form.is_valid():
             title = form.cleaned_data['title']
             Tag.objects.create(title=title)
-            return redirect('get-all-tags')
+            return redirect('form:get-all-tags')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -62,7 +62,7 @@ def create_post(request):
             # print(request.user)
 
             Post.objects.create(title=title)
-            return redirect('get-all-posts')
+            return redirect('form:get-all-posts')
 
     else:
         data = {'user_id': request.user.id}
@@ -85,7 +85,7 @@ def create_portfolios(request):
             author = request.user
 
             Portfolio.objects.create(nickname=nickname, author=author, )
-            return redirect('get-all-portfolios')
+            return redirect('form:get-all-portfolios')
 
     else:
         form = CreatePortfolioForm()

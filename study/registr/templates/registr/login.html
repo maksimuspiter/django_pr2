@@ -1,0 +1,10 @@
+
+
+<h1>Login</h1>
+
+<form method="post">
+    {% csrf_token %} <!-- Генериует специальный токен-->
+    {{ form.as_p }}  <!-- Элементы формы => параграфы-->
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+</form>
+

@@ -19,9 +19,11 @@ from django.urls import path, include, re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
+
     path('blog/', include('blog.urls')),
     path('snippets/', include('snippets.urls')),
     path('form/', include('form.urls')),
+    path('registration/', include('registr.urls')),
 
 ]
 urlpatterns += [

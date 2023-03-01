@@ -1,6 +1,8 @@
 from django.urls import path, include, re_path
 from form import views
 
+app_name = 'form'
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('posts/', views.show_posts, name='get-all-posts'),
