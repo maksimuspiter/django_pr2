@@ -1,7 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
-from form.models import Post, Tag, Portfolio
-from .forms import CreateTagForm, CreatePostForm, CreateCategoryForm
+from django.views.generic import CreateView
+
+from form.models import Post, Tag, Portfolio, Category
+from .forms import CreateTagForm, CreatePostForm, CreateCategoryFormFactory, CreatePortfolioForm
 
 
 def index(request):
@@ -17,6 +19,16 @@ def show_posts(request):
 def show_tags(request):
     tags = [str(tag) + ' ' for tag in Tag.objects.all()]
     return HttpResponse(tags)
+
+def show_portfolio(request):
+    ports = [str(port) + ' ' for port in Portfolio.objects.filter(author=request.user)]
+    return HttpResponse(ports)
+
+
+def show_category(request):
+    cats = [str(cat) + ' ' for cat in Category.objects.all()]
+    return HttpResponse(cats)
+
 
 
 def create_tag(request):
@@ -37,9 +49,6 @@ def create_tag(request):
     return render(request, 'form/name.html', {'form': form})
 
 
-
-
-
 def create_post(request):
     if request.method == 'POST':
         form = CreatePostForm(request.POST)
@@ -58,5 +67,27 @@ def create_post(request):
     else:
         data = {'user_id': request.user.id}
         form = CreatePostForm(user=request.user)
+
+    return render(request, 'form/name.html', {'form': form})
+
+
+class CreateCategoryFactory(CreateView):
+    form_class = CreateCategoryFormFactory
+    template_name = 'form/name.html'
+    success_url = '/form/'
+
+def create_portfolios(request):
+    if request.method == 'POST':
+        form = CreatePortfolioForm(request.POST)
+
+        if form.is_valid():
+            nickname = form.cleaned_data['nickname']
+            author = request.user
+
+            Portfolio.objects.create(nickname=nickname, author=author, )
+            return redirect('get-all-portfolios')
+
+    else:
+        form = CreatePortfolioForm()
 
     return render(request, 'form/name.html', {'form': form})
