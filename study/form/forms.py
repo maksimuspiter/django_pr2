@@ -1,11 +1,13 @@
 from random import choices
 
 from django import forms
+from django.forms import formset_factory
+
 from form.models import Tag, Category, Portfolio, Post
 
 
 class CreateTagForm(forms.Form):
-    title = forms.CharField(label='Your name', max_length=255)
+    title = forms.CharField(label='Tag_name', max_length=255)
 
 
 class CreateCategoryForm(forms.ModelForm):
@@ -48,3 +50,4 @@ CreateCategoryFormFactory = forms.modelform_factory(Category,
                                                     help_texts={"title": "name of category"},
                                                     )
 
+# CategoryFormSet = forms.modelformset_factory(Category, CreateCategoryForm, extra=3)

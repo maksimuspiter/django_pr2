@@ -5,11 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-  <form method="post">
+{%for form in formset%}
+  <form action="" method="post">
     {% csrf_token %}
     {{ form }}
+{% endfor %}
 
     <input type="submit" value="Submit">
+
 </form>
 </body>
 </html>
