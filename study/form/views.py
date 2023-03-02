@@ -6,6 +6,7 @@ from form.models import Post, Tag, Portfolio, Category
 from django import forms
 from .forms import CreateTagForm, CreatePostForm, CreateCategoryFormFactory, CreatePortfolioForm, CreateCategoryForm
 from django.contrib.auth.decorators import login_required
+from django.db.transaction import atomic
 
 CreateCategoryForm
 
@@ -25,7 +26,9 @@ def show_posts(request):
 
 @login_required(login_url='registration:login')
 def show_posts_less_qwery(request):
-    posts = Post.objects.select_related('category').prefetch_related('tags').all()
+    posts = Post.objects.select_related('category').\
+        prefetch_related('tags').only(
+        'title', 'text', 'created_date', 'category', 'tags').all()
     data = {'title': 'all_posts', 'posts': posts}
     return render(request, 'form/posts.html', data)
 
@@ -129,3 +132,4 @@ def create_portfolios2(request):
 
 
 CategoryFormSet = forms.modelform_factory(Category, CreateCategoryForm, fields=('title',))
+
