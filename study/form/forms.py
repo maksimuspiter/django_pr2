@@ -51,3 +51,7 @@ CreateCategoryFormFactory = forms.modelform_factory(Category,
                                                     )
 
 # CategoryFormSet = forms.modelformset_factory(Category, CreateCategoryForm, extra=3)
+
+class SearchForm(forms.Form):
+    keyword = forms.CharField(max_length=20, label='Keyword')
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Post')

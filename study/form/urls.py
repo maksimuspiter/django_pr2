@@ -19,6 +19,8 @@ urlpatterns = [
     path('portfolios/create/', views.create_portfolios, name='create-portfolios'),
     path('portfolios/create2/', views.create_portfolios2, name='create-portfolios2'),
 
+    path('posts/search/', views.search, name='search-posts'),
+
     # path('categories/add3/', views.CategoryFormSet, name='create-categories-3')
 
 ]

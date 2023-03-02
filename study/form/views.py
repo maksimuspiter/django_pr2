@@ -4,7 +4,8 @@ from django.views.generic import CreateView
 
 from form.models import Post, Tag, Portfolio, Category
 from django import forms
-from .forms import CreateTagForm, CreatePostForm, CreateCategoryFormFactory, CreatePortfolioForm, CreateCategoryForm
+from .forms import CreateTagForm, CreatePostForm, CreateCategoryFormFactory, CreatePortfolioForm, CreateCategoryForm, \
+    SearchForm
 from django.contrib.auth.decorators import login_required
 from django.db.transaction import atomic
 
@@ -26,7 +27,7 @@ def show_posts(request):
 
 @login_required(login_url='registration:login')
 def show_posts_less_qwery(request):
-    posts = Post.objects.select_related('category').\
+    posts = Post.objects.select_related('category'). \
         prefetch_related('tags').only(
         'title', 'text', 'created_date', 'category', 'tags').all()
     data = {'title': 'all_posts', 'posts': posts}
@@ -133,3 +134,20 @@ def create_portfolios2(request):
 
 CategoryFormSet = forms.modelform_factory(Category, CreateCategoryForm, fields=('title',))
 
+
+def search(request):
+    if request.method == 'POST':
+        sf = SearchForm(request.POST)
+        if sf.is_valid():
+            keyword = sf.cleaned_data['keyword']
+            category = sf.cleaned_data['category']
+            category_id = category.pk
+            posts = Post.objects.filter(title__icontains=keyword,
+                                        category=category_id)
+            context = {'posts': posts, 'category': category}
+            print(category, keyword)
+            return render(request, 'form/search_results.html', context)
+    else:
+        sf = SearchForm()
+    context = {'form': sf}
+    return render(request, 'form/search.html', context)
