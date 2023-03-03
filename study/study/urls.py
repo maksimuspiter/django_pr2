@@ -24,6 +24,7 @@ urlpatterns = [
     path('snippets/', include('snippets.urls')),
     path('form/', include('form.urls')),
     path('registration/', include('registr.urls')),
+    path('captcha/', include('captcha.urls')),
 
 ]
 urlpatterns += [

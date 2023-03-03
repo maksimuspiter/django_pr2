@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'blog',
     'snippets',
     'form',
-    'registr'
+    'registr',
+    'captcha'
 ]
 
 MIDDLEWARE = [

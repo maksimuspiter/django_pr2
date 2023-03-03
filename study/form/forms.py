@@ -1,5 +1,7 @@
 from random import choices
 
+import captcha as captcha
+from captcha.fields import CaptchaField
 from django import forms
 from django.forms import formset_factory
 
@@ -50,8 +52,13 @@ CreateCategoryFormFactory = forms.modelform_factory(Category,
                                                     help_texts={"title": "name of category"},
                                                     )
 
+
 # CategoryFormSet = forms.modelformset_factory(Category, CreateCategoryForm, extra=3)
 
 class SearchForm(forms.Form):
     keyword = forms.CharField(max_length=20, label='Keyword')
     category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Post')
+
+    captcha = CaptchaField(error_messages={'invalid': 'Wrong captcha'},
+                           # generator='captcha.helpers.math_challenge'
+                           )

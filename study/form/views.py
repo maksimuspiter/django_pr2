@@ -1,3 +1,4 @@
+from django.forms import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import CreateView
@@ -151,3 +152,18 @@ def search(request):
         sf = SearchForm()
     context = {'form': sf}
     return render(request, 'form/search.html', context)
+
+# def formset_processing(request):
+#     FS = formset_factory(SearchForm, extra=3, can_order=True, can_delete=True)
+#
+#     if request.method == 'POST':
+#         formset = FS(request.POST)
+#         if formset.is_valid():
+#             for form in formset:
+#                 if form.cleaned_data and not form.cleaned_data['DELETE']:
+#                     keyword = form.cleaned_data['keyword']
+#                     keyword = form.cleaned_data['keyword']
+#                     category = form.cleaned_data['category']
+#                     category_id = category.pk
+#                     order = form.cleaned_data['ORDER']
+#
